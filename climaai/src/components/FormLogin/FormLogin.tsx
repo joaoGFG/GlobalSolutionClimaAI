@@ -28,6 +28,10 @@ export default function FormLogin() {
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
+        
+        if (data.nome) {
+          localStorage.setItem("nome", data.nome);
+        }
 
         router.push("/simulacao");
       } else {

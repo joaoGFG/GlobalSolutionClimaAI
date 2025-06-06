@@ -65,6 +65,14 @@ export default function Header() {
               <span className="text-white font-medium">
                 Olá, {usuario.nome}
               </span>
+
+              <Link
+                href="/perfil"
+                className="bg-white text-black rounded-full px-4 py-1 text-sm font-medium hover:bg-gray-100 transition"
+              >
+                Perfil
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="bg-red-500 text-white rounded-full px-4 py-1 text-sm font-medium hover:bg-red-600 transition"
@@ -90,7 +98,6 @@ export default function Header() {
           )}
         </div>
       </div>
-
       {/* Banner com imagem */}
       <div className="w-full">
         <Image

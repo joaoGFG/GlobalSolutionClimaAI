@@ -25,7 +25,7 @@ export default function Redefinir() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/usuarios/atualizar', {
+      const response = await fetch('https://gs-java-k07h.onrender.com/usuarios/atualizar', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

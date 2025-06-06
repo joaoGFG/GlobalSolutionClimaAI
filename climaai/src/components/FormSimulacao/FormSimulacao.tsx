@@ -70,7 +70,7 @@ const FormSimulacao = () => {
         };
  
         try {
-            const response = await fetch('http://localhost:8080/api/avaliacoes', {
+            const response = await fetch('http://localhost:8080/avaliacoes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

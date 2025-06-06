@@ -60,14 +60,20 @@ const FormSimulacao = () => {
             alert('Usuário não autenticado.');
             return;
         }
+        if (!respostas.tipoConstrucao) {
+            alert("Por favor, selecione o tipo de construção.");
+            return;
+        }
  
         const payload = {
             usuarioId,
             moraEmEncosta: respostas.moraEmEncosta === 'sim',
             ruaAlaga: respostas.ruaAlaga === 'sim',
-            tipoConstrucao: respostas.tipoConstrucao.toUpperCase(), // "ALVENARIA" ou "MADEIRA"
+            tipoConstrucao: respostas.tipoConstrucao.toUpperCase(), 
             numeroPessoas: parseInt(respostas.numeroPessoas || '0'),
         };
+
+        console.log("Payload enviado para API:", payload);
  
         try {
             const response = await fetch('https://gs-java-k07h.onrender.com/avaliacoes', {
@@ -122,8 +128,9 @@ const FormSimulacao = () => {
                 <label className="block text-sm font-medium">Tipo de construção da sua casa:</label>
                 <select name="tipoConstrucao" value={respostas.tipoConstrucao} onChange={handleChange} className="w-full p-2 border rounded">
                     <option value="">Selecione</option>
-                    <option value="alvenaria">Alvenaria</option>
-                    <option value="madeira">Madeira</option>
+                    <option value="ALVENARIA">Alvenaria</option>
+                    <option value="MADEIRA">Madeira</option>
+                    <option value="IMPROVISADA">Improvisada</option>
                 </select>
             </div>
  

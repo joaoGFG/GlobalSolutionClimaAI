@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../../contexts/AuthContext"; 
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function FormLogin() {
       if (response.ok) {
         setMensagem("Login bem-sucedido!");
 
-        login(data.nome, data.token); 
+        login(data.nome, data.email, data.token); // Atualizado
 
         if (data.id) {
           localStorage.setItem("usuarioId", data.id.toString());

@@ -1,18 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext"; 
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Perfil() {
-  const { nome } = useAuth();
-  const [email, setEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    if (storedEmail) {
-      setEmail(storedEmail);
-    }
-  }, []);
+  const { nome, email } = useAuth();
 
   if (!nome || !email) {
     return <p className="text-center mt-10">Carregando dados do perfil...</p>;

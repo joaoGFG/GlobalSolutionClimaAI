@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../contexts/AuthContext"; 
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,13 +26,10 @@ export default function FormLogin() {
       if (response.ok) {
         setMensagem("Login bem-sucedido!");
 
-        localStorage.setItem("usuarioId", data.id);
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-        }
-        
-        if (data.nome) {
-          localStorage.setItem("nome", data.nome);
+        login(data.nome, data.token); 
+
+        if (data.id) {
+          localStorage.setItem("usuarioId", data.id.toString());
         }
 
         router.push("/simulacao");

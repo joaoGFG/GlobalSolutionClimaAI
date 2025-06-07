@@ -18,14 +18,11 @@ export default function Perfil() {
     setCarregando(true);
 
     try {
-      const response = await fetch(`https://gs-java-k07h.onrender.com/usuarios/deletar`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
+      const response = await fetch(`https://gs-java-k07h.onrender.com/usuarios/deletar/${encodeURIComponent(email)}`, {
+        method: 'DELETE'
       });
-      if (response.ok) {
+
+      if (response.ok || response.status === 204) {
         alert("Conta deletada com sucesso.");
         logout();
         router.push('/');

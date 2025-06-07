@@ -10,6 +10,8 @@ interface Respostas {
     numeroPessoas: string;
     pertoRio: string;
     drenagem: string;
+    cidade: string;
+    estado: string;
 }
  
 const FormSimulacao = () => {
@@ -21,6 +23,8 @@ const FormSimulacao = () => {
         numeroPessoas: '',
         pertoRio: '',
         drenagem: '',
+        cidade: '',
+        estado: ''
     });
  
     const [usuarioId, setUsuarioId] = useState<number | null>(null);
@@ -71,6 +75,8 @@ const FormSimulacao = () => {
             ruaAlaga: respostas.ruaAlaga === 'sim',
             tipoConstrucao: respostas.tipoConstrucao.toUpperCase(), 
             numeroPessoas: parseInt(respostas.numeroPessoas || '0'),
+            cidade: respostas.cidade || 'Desconhecida',
+            estado: respostas.estado || 'Desconhecido',
         };
 
         console.log("Payload enviado para API:", payload);
@@ -97,6 +103,28 @@ const FormSimulacao = () => {
  
     return (
         <form className="max-w-xl mx-auto space-y-4">
+            <div>
+                <label className="block text-sm font-medium">Cidade</label>
+                <input
+                    type="text"
+                    name="cidade"
+                    value={respostas.cidade}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Digite sua cidade"
+                />
+            </div>
+            <div>
+                <label className="block text-sm font-medium">Estado</label>
+                <input
+                    type="text"
+                    name="estado"
+                    value={respostas.estado}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Digite seu estado"
+                />
+            </div>
             <div>
                 <label className="block text-sm font-medium">Você mora em encosta?</label>
                 <select name="moraEmEncosta" value={respostas.moraEmEncosta} onChange={handleChange} className="w-full p-2 border rounded">

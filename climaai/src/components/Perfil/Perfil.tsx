@@ -6,16 +6,30 @@ export default function Perfil() {
   const { nome, email } = useAuth();
 
   if (!nome || !email) {
-    return <p className="text-center mt-10">Carregando dados do perfil...</p>;
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="text-center">Carregando dados do perfil...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow bg-white">
-      <h1 className="text-2xl font-bold mb-4 text-center">Perfil do Usuário</h1>
-      <div className="text-gray-800 space-y-2">
-        <p><strong>Nome:</strong> {nome}</p>
-        <p><strong>Email:</strong> {email}</p>
+    <div className="flex h-full items-center justify-center p-4">
+
+      <div className="w-full max-w-md rounded-lg border bg-white p-6 shadow">
+        <h1 className="mb-4 text-center text-2xl font-bold">
+          Perfil do Usuário
+        </h1>
+        <div className="space-y-2 text-gray-800">
+          <p>
+            <strong>Nome:</strong> {nome}
+          </p>
+          <p>
+            <strong>Email:</strong> {email}
+          </p>
+        </div>
       </div>
+      
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { AuthProvider } from '@/contexts/AuthContext'; 
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata = {
   title: 'ClimaAI',
@@ -11,10 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className="flex min-h-screen flex-col">
         <AuthProvider>
           <Header />
-          {children}
+          <main className="flex-1">{children}</main>
           <Footer />
         </AuthProvider>
       </body>

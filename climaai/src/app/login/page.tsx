@@ -10,12 +10,6 @@ export default function LoginPage() {
         <FormLogin />
 
         <div className="text-center mt-4">
-          <Link
-            href="/redefinir"
-            className="text-sm text-blue-600 hover:underline"
-          >
-            Esqueceu a senha?
-          </Link>
         </div>
       </div>
     </main>

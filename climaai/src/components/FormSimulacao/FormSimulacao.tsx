@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import SpinLoading from "../../components/SpinLoading/SpinLoading"; 
 
 interface Respostas {
     moraEmEncosta: string;
@@ -28,6 +29,8 @@ const FormSimulacao = () => {
     });
 
     const [usuarioId, setUsuarioId] = useState<number | null>(null);
+    const [carregando, setCarregando] = useState(false);
+    const [mensagemDeCarregamento, setMensagemDeCarregamento] = useState("");
 
     useEffect(() => {
         const id = localStorage.getItem('usuarioId');
@@ -52,6 +55,8 @@ const FormSimulacao = () => {
         };
 
         try {
+            setCarregando(true);
+            setMensagemDeCarregamento("Simulando risco...");
             const response = await fetch('https://gs-java-k07h.onrender.com/avaliacoes/simular', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -68,6 +73,8 @@ const FormSimulacao = () => {
         } catch (error) {
             console.error(error);
             alert('Erro ao conectar com a API de simulação.');
+        } finally {
+            setCarregando(false);
         }
     };
 
@@ -91,9 +98,9 @@ const FormSimulacao = () => {
             estado: respostas.estado || 'Desconhecido',
         };
 
-        console.log("Payload enviado para API:", payload);
-
         try {
+            setCarregando(true);
+            setMensagemDeCarregamento("Enviando avaliação...");
             const response = await fetch('https://gs-java-k07h.onrender.com/avaliacoes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -101,8 +108,7 @@ const FormSimulacao = () => {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                alert(`Avaliação salva com sucesso! Nível de risco: ${data.nivelRisco}`);
+                alert(`Avaliação salva com sucesso!`);
             } else {
                 const erro = await response.text();
                 alert('Erro ao enviar avaliação: ' + erro);
@@ -110,8 +116,14 @@ const FormSimulacao = () => {
         } catch (err) {
             console.error(err);
             alert('Erro ao conectar com a API.');
+        } finally {
+            setCarregando(false);
         }
     };
+
+    if (carregando) {
+        return <SpinLoading mensagem={mensagemDeCarregamento} />;
+    }
 
     return (
         <form className="max-w-xl mx-auto space-y-4">
@@ -196,7 +208,6 @@ const FormSimulacao = () => {
                     <option value="ruim">Ruim</option>
                 </select>
             </div>
-
             <div className="flex flex-col gap-4 mt-6">
                 <button
                     type="button"

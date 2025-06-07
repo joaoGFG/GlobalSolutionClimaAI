@@ -168,7 +168,7 @@ const FormSimulacao = () => {
               <label className="block text-sm font-medium text-gray-700">{label}</label>
               <select
                 name={name}
-                value={(respostas as any)[name]}
+                value={respostas[name as keyof Respostas]}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-md"
               >

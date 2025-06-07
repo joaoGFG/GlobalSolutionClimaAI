@@ -2,24 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Redefinir() {
+  const router = useRouter();
+  const { nome: nomeContext, email, login } = useAuth();
+
   const [nome, setNome] = useState('');
   const [novaSenha, setNovaSenha] = useState('');
-  const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
-  const router = useRouter();
 
   useEffect(() => {
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    if (!usuarioLogado) {
+    if (!email) {
       router.push('/login');
     } else {
-      const usuario = JSON.parse(usuarioLogado);
-      setEmail(usuario.email);
-      setNome(usuario.nome || '');
+      setNome(nomeContext || '');
     }
-  }, []);
+  }, [email, nomeContext, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,15 +32,14 @@ export default function Redefinir() {
         body: JSON.stringify({
           email,
           novoNome: nome,
-          novaSenha: novaSenha,
+          novaSenha,
         }),
       });
 
       if (response.ok) {
         setMensagem('Dados atualizados com sucesso!');
-        // Atualiza o localStorage
-        const usuarioAtualizado = { email, nome };
-        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+        const token = localStorage.getItem("token") || ""; 
+        login(nome, email!, token); 
       } else {
         const erro = await response.text();
         setMensagem(`Erro: ${erro}`);

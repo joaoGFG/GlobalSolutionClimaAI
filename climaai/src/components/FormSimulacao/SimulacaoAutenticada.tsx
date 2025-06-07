@@ -23,8 +23,8 @@ export default function SimulacaoAutenticada() {
   }
 
   return (
-    <div className="max-w-xl mx-auto mt-10 px-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Formulário de Avaliação de Risco</h1>
+    <div className="max-w-2xl mx-auto mt-10 px-4 py-6 bg-white shadow-md rounded-xl">
+      <h1 className="text-2xl font-bold mb-4 text-center text-blue-800">Veja se está em risco!</h1>
       <FormSimulacao />
     </div>
   );

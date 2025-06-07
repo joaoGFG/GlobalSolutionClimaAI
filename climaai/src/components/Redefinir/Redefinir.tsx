@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
+import SpinLoading from '../../components/SpinLoading/SpinLoading';
 
 export default function Redefinir() {
   const router = useRouter();
@@ -12,17 +13,17 @@ export default function Redefinir() {
   const [novaSenha, setNovaSenha] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [carregandoAtualizacao, setCarregandoAtualizacao] = useState(false);
 
   useEffect(() => {
     if (email) {
       setNome(nomeContext || '');
       setIsLoading(false);
     } else {
-
       const timer = setTimeout(() => {
         setIsLoading(false);
         if (!email) router.push('/login');
-      }, 500); 
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [email, nomeContext, router]);
@@ -31,8 +32,15 @@ export default function Redefinir() {
     return <div className="text-center mt-20">Carregando...</div>;
   }
 
+  if (carregandoAtualizacao) {
+    return <SpinLoading mensagem="Atualizando dados..." />;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setCarregandoAtualizacao(true);
+    setMensagem('');
+
     try {
       const response = await fetch('https://gs-java-k07h.onrender.com/usuarios/atualizar', {
         method: 'PUT',
@@ -57,6 +65,8 @@ export default function Redefinir() {
     } catch (error) {
       console.error('Erro na requisição:', error);
       setMensagem('Erro na requisição. Tente novamente.');
+    } finally {
+      setCarregandoAtualizacao(false);
     }
   };
 
@@ -82,9 +92,8 @@ export default function Redefinir() {
               type="password"
               value={novaSenha}
               onChange={(e) => setNovaSenha(e.target.value)}
-              required
               className="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Nova senha"
+              placeholder="Nova senha (opcional)"
             />
           </div>
           <button

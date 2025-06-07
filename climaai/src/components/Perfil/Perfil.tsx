@@ -1,20 +1,29 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../ui/Button';
+import SpinLoading from '../../components/SpinLoading/SpinLoading';
 
 export default function Perfil() {
   const { nome, email, logout } = useAuth();
   const router = useRouter();
+  const [carregando, setCarregando] = useState(false);
 
   const handleDelete = async () => {
     const confirmacao = confirm("Tem certeza que deseja deletar sua conta?");
     if (!confirmacao || !email) return;
 
+    setCarregando(true);
+
     try {
-      const response = await fetch(`https://gs-java-k07h.onrender.com/usuarios/deletar?email=${email}`, {
+      const response = await fetch(`https://gs-java-k07h.onrender.com/usuarios/deletar`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
@@ -28,8 +37,14 @@ export default function Perfil() {
     } catch (error) {
       alert("Erro de rede ao deletar conta.");
       console.error(error);
+    } finally {
+      setCarregando(false);
     }
   };
+
+  if (carregando) {
+    return <SpinLoading mensagem="Deletando conta..." />;
+  }
 
   if (!nome || !email) {
     return (
@@ -51,15 +66,15 @@ export default function Perfil() {
             <strong>Email:</strong> {email}
           </p>
         </div>
-          <div className="mt-6 flex justify-between">
-            <Button onClick={() => router.push('/redefinir')}>
-              Editar Perfil
-            </Button>
-            <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600">
-              Deletar Conta
-            </Button>
-          </div>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={() => router.push('/redefinir')}>
+            Editar Perfil
+          </Button>
+          <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600">
+            Deletar Conta
+          </Button>
         </div>
       </div>
+    </div>
   );
 }

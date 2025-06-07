@@ -19,13 +19,12 @@ export default function Perfil() {
 
     try {
       const response = await fetch(`https://gs-java-k07h.onrender.com/usuarios/deletar`, {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email }),
       });
-
       if (response.ok) {
         alert("Conta deletada com sucesso.");
         logout();

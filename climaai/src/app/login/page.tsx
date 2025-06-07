@@ -1,4 +1,3 @@
-import Link from "next/link";
 import FormLogin from "../../components/FormLogin/FormLogin";
 
 export default function LoginPage() {

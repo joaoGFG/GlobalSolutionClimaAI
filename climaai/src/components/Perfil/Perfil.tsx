@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/Ui/Button';
 
 export default function Perfil() {
   const { nome, email, logout } = useAuth();

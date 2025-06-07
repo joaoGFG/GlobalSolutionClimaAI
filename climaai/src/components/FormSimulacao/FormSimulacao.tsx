@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import SpinLoading from "../../components/SpinLoading/SpinLoading"; 
+import SpinLoading from "../../components/SpinLoading/SpinLoading";
 
 interface Respostas {
     moraEmEncosta: string;
@@ -126,106 +126,111 @@ const FormSimulacao = () => {
     }
 
     return (
-        <form className="max-w-xl mx-auto space-y-4">
-            <div>
-                <label className="block text-sm font-medium">Cidade</label>
-                <input
-                    type="text"
-                    name="cidade"
-                    value={respostas.cidade}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                    placeholder="Digite sua cidade"
-                />
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Estado</label>
-                <input
-                    type="text"
-                    name="estado"
-                    value={respostas.estado}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                    placeholder="Digite seu estado"
-                />
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Você mora em encosta?</label>
-                <select name="moraEmEncosta" value={respostas.moraEmEncosta} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="sim">Sim</option>
-                    <option value="nao">Não</option>
-                </select>
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Sua casa apresenta rachaduras?</label>
-                <select name="rachaduras" value={respostas.rachaduras} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="sim">Sim</option>
-                    <option value="nao">Não</option>
-                </select>
-            </div>
-            <div>
-                <label className="block text-sm font-medium">A rua alaga quando chove?</label>
-                <select name="ruaAlaga" value={respostas.ruaAlaga} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="sim">Sim</option>
-                    <option value="nao">Não</option>
-                </select>
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Tipo de construção da sua casa:</label>
-                <select name="tipoConstrucao" value={respostas.tipoConstrucao} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="ALVENARIA">Alvenaria</option>
-                    <option value="MADEIRA">Madeira</option>
-                    <option value="IMPROVISADA">Improvisada</option>
-                </select>
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Quantas pessoas moram na sua casa?</label>
-                <input
-                    type="number"
-                    name="numeroPessoas"
-                    value={respostas.numeroPessoas}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                />
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Sua casa fica perto de rio ou córrego?</label>
-                <select name="pertoRio" value={respostas.pertoRio} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="sim">Sim</option>
-                    <option value="nao">Não</option>
-                </select>
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Como é a drenagem da sua rua?</label>
-                <select name="drenagem" value={respostas.drenagem} onChange={handleChange} className="w-full p-2 border rounded">
-                    <option value="">Selecione</option>
-                    <option value="boa">Boa</option>
-                    <option value="ruim">Ruim</option>
-                </select>
-            </div>
-            <div className="flex flex-col gap-4 mt-6">
-                <button
-                    type="button"
-                    onClick={simularRisco}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                >
-                    Simular Risco
-                </button>
+        <div className="bg-gray-100 min-h-screen py-12">
+            <div className="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg">
+                <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Formulário de Avaliação de Risco</h2>
+                <form className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Cidade</label>
+                        <input
+                            type="text"
+                            name="cidade"
+                            value={respostas.cidade}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded-md"
+                            placeholder="Digite sua cidade"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Estado</label>
+                        <input
+                            type="text"
+                            name="estado"
+                            value={respostas.estado}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded-md"
+                            placeholder="Digite seu estado"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Você mora em encosta?</label>
+                        <select name="moraEmEncosta" value={respostas.moraEmEncosta} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Sua casa apresenta rachaduras?</label>
+                        <select name="rachaduras" value={respostas.rachaduras} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">A rua alaga quando chove?</label>
+                        <select name="ruaAlaga" value={respostas.ruaAlaga} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Tipo de construção da sua casa</label>
+                        <select name="tipoConstrucao" value={respostas.tipoConstrucao} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="ALVENARIA">Alvenaria</option>
+                            <option value="MADEIRA">Madeira</option>
+                            <option value="IMPROVISADA">Improvisada</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Quantas pessoas moram na sua casa?</label>
+                        <input
+                            type="number"
+                            name="numeroPessoas"
+                            value={respostas.numeroPessoas}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded-md"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Sua casa fica perto de rio ou córrego?</label>
+                        <select name="pertoRio" value={respostas.pertoRio} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Como é a drenagem da sua rua?</label>
+                        <select name="drenagem" value={respostas.drenagem} onChange={handleChange} className="w-full p-2 border rounded-md">
+                            <option value="">Selecione</option>
+                            <option value="boa">Boa</option>
+                            <option value="ruim">Ruim</option>
+                        </select>
+                    </div>
 
-                <button
-                    type="button"
-                    onClick={enviarAvaliacao}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                >
-                    Enviar Avaliação para o Sistema
-                </button>
+                    <div className="flex flex-col gap-4 mt-6">
+                        <button
+                            type="button"
+                            onClick={simularRisco}
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition"
+                        >
+                            Simular Risco
+                        </button>
+                        <button
+                            type="button"
+                            onClick={enviarAvaliacao}
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
+                        >
+                            Enviar Avaliação para o Sistema
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     );
 };
 

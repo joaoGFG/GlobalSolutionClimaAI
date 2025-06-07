@@ -40,7 +40,7 @@ export default function FormLogin() {
       }
     } catch (error: unknown) {
       console.error("Erro durante o login:", error);
-      setMensagem("Erro ao conectar com o servidor.");
+      setMensagem("Erro ao logar");
     } finally {
       setCarregando(false);
     }

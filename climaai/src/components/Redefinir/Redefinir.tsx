@@ -11,18 +11,28 @@ export default function Redefinir() {
   const [nome, setNome] = useState('');
   const [novaSenha, setNovaSenha] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!email) {
-      router.push('/login');
-    } else {
+    if (email) {
       setNome(nomeContext || '');
+      setIsLoading(false);
+    } else {
+
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        if (!email) router.push('/login');
+      }, 500); 
+      return () => clearTimeout(timer);
     }
   }, [email, nomeContext, router]);
 
+  if (isLoading) {
+    return <div className="text-center mt-20">Carregando...</div>;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       const response = await fetch('https://gs-java-k07h.onrender.com/usuarios/atualizar', {
         method: 'PUT',
@@ -38,8 +48,8 @@ export default function Redefinir() {
 
       if (response.ok) {
         setMensagem('Dados atualizados com sucesso!');
-        const token = localStorage.getItem("token") || ""; 
-        login(nome, email!, token); 
+        const token = localStorage.getItem("token") || "";
+        login(nome, email!, token);
       } else {
         const erro = await response.text();
         setMensagem(`Erro: ${erro}`);
@@ -53,10 +63,7 @@ export default function Redefinir() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-white px-4 py-16">
       <div className="w-full max-w-md bg-gray-100 p-8 rounded-2xl shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6 text-black">
-          Atualizar Dados
-        </h1>
-
+        <h1 className="text-2xl font-bold text-center mb-6 text-black">Atualizar Dados</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
@@ -69,7 +76,6 @@ export default function Redefinir() {
               placeholder="Novo nome"
             />
           </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Nova senha</label>
             <input
@@ -81,7 +87,6 @@ export default function Redefinir() {
               placeholder="Nova senha"
             />
           </div>
-
           <button
             type="submit"
             className="bg-black text-white rounded-full py-2 px-4 hover:bg-gray-800 transition font-medium"
@@ -89,10 +94,7 @@ export default function Redefinir() {
             Atualizar
           </button>
         </form>
-
-        {mensagem && (
-          <p className="text-sm text-center mt-4 text-gray-700">{mensagem}</p>
-        )}
+        {mensagem && <p className="text-sm text-center mt-4 text-gray-700">{mensagem}</p>}
       </div>
     </main>
   );
